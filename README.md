@@ -67,7 +67,7 @@ Mobile_Harbour_Cranes
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/RF-DETR-Infrastructure-Detection.git
+https://github.com/sayanc227/Critical-Infrastructure-Detection-using-RF-DETR.git
 cd RF-DETR-Infrastructure-Detection
 
 # Install dependencies
