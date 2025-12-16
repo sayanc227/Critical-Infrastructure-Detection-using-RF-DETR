@@ -14,5 +14,4 @@ tqdm
 pyyaml
 requests
 roboflow
-rfdetr @ git+https://github.com/ternaus/rfdetr.git
 
