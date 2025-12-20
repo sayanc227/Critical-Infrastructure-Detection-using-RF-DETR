@@ -221,6 +221,4 @@ Project Link: [https://github.com/YOUR_USERNAME/RF-DETR-Infrastructure-Detection
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
-*Built with ❤️ for critical infrastructure monitoring*
-
 </div>
