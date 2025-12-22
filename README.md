@@ -155,6 +155,16 @@ python src/predict.py \
 
 This table summarizes the performance of your model across all 19 infrastructure classes on the validation set.
 
+## RF-DETR Validation Performance Metrics
+
+### 📊 Metrics Overview
+- **Precision**: The accuracy of positive predictions.  
+- **Recall**: The ability to find all positive instances.  
+- **$mAP_{50}$**: Mean Average Precision at an Intersection over Union (IoU) threshold of 0.50.  
+- **$mAP_{50:95}$**: Average mAP across IoU thresholds from 0.50 to 0.95 (COCO standard).  
+
+This table summarizes the performance of your model across all 19 infrastructure classes on the validation set.
+
 | Class                           | Precision | Recall | mAP@50 | mAP@50:95 |
 |---------------------------------|-----------|--------|--------|-----------|
 | **All Classes (Avg)**           | **0.747** | **0.630** | **0.761** | **0.506** |
@@ -170,7 +180,14 @@ This table summarizes the performance of your model across all 19 infrastructure
 | Energy Storage Infrastructure   | 0.887     | 0.630  | 0.854  | 0.633     |
 | Nuclear Reactor                 | 0.854     | 0.630  | 0.753  | 0.508     |
 | Seaport                         | 0.842     | 0.630  | 0.825  | 0.537     |
-| Thermal Power Plant             | 0.818     | 0.630  | 0.767  | 0.432     |            
+| Thermal Power Plant             | 0.818     | 0.630  | 0.767  | 0.432     |
+| Dam                             | 0.621     | 0.630  | 0.647  | 0.251     |
+| Solar Power Plant               | 0.379     | 0.630  | 0.578  | 0.401     |
+| Cooling Tower                   | 0.333     | 0.630  | 0.333  | 0.250     |
+| Cargo Ship                      | 0.318     | 0.630  | 0.512  | 0.152     |
+| Mobile Harbour Cranes            | 0.283     | 0.630  | 0.509  | 0.320     |
+| Shipping Containers             | 0.035     | 0.630  | 0.354  | 0.114     |
+            
 
 ---
 
