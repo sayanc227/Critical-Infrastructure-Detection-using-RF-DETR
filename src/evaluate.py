@@ -3,32 +3,27 @@ from rfdetr import RFDETRBase
 
 
 def main(args):
-model = RFDETRBase()
+    model = RFDETRBase()
 
+    # Evaluation-only load (safe)
+    model.train(
+        dataset_dir=args.dataset_dir,
+        epochs=0,
+        resume=args.checkpoint
+    )
 
-# Evaluation-only load (safe)
-model.train(
-dataset_dir=args.dataset_dir,
-epochs=0,
-resume=args.checkpoint
-)
+    results = model.evaluate(
+        dataset_dir=args.dataset_dir,
+        save_predictions=True
+    )
 
-
-results = model.evaluate(
-dataset_dir=args.dataset_dir,
-save_predictions=True
-)
-
-
-print("Evaluation results:\n", results)
-
-
+    print("Evaluation results:\n", results)
 
 
 if __name__ == "__main__":
-parser = argparse.ArgumentParser(description="Evaluate trained RF-DETR model")
-parser.add_argument("--dataset_dir", required=True)
-parser.add_argument("--checkpoint", required=True)
+    parser = argparse.ArgumentParser(description="Evaluate trained RF-DETR model")
+    parser.add_argument("--dataset_dir", required=True)
+    parser.add_argument("--checkpoint", required=True)
 
-
-main(parser.parse_args())
+    args = parser.parse_args()
+    main(args)
