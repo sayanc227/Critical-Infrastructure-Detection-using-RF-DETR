@@ -1,6 +1,6 @@
 # 🏗️ Critical Infrastructure Detection using RF-DETR
 
-Transformer-based RF-DETR model for drone & aerial surveillance detecting critical infrastructure (bridges, power plants, substations, towers).
+Transformer-based RF-DETR model for drone & aerial surveillance detecting 19 classes of critical infrastructure (bridges, power plants, substations, towers, ports, etc.).
 
 <div align="center">
 
@@ -23,23 +23,17 @@ Transformer-based RF-DETR model for drone & aerial surveillance detecting critic
   </tr>
 </table>
 
-</div>
-
-
-### 🎯 Detect and localize 19 types of critical infrastructure in aerial imagery
-*Using state-of-the-art RF-DETR (Transformer-based object detection)*
-
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![RF-DETR](https://img.shields.io/badge/Model-RF--DETR-orange.svg)]()
 [![Roboflow](https://img.shields.io/badge/Roboflow-Dataset-purple.svg)](https://roboflow.com/)
 [![Label Studio](https://img.shields.io/badge/Label%20Studio-Annotation-ff6b6b.svg)](https://labelstud.io/)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/167xgsFcpFqzVfAbT88IFdUYeM_X0h1um?usp=sharing)
-[![Batch Processing](https://img.shields.io/badge/Batch-Inference-blue.svg)]()
-[![mAP@50](https://img.shields.io/badge/mAP@50-76%25-brightgreen.svg)]()
+[![Micro F1](https://img.shields.io/badge/Micro%20F1-92.4%25-brightgreen.svg)]()
+[![Macro F1](https://img.shields.io/badge/Macro%20F1-83.5%25-yellowgreen.svg)]()
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[🚀 Quick Start](#quick-start) • [📊 Results](#results)
+[🚀 Quick Start](#-how-to-run-the-project) • [📊 Results & Error Analysis](#-results--error-analysis) • [📂 Resources](#-resources--downloads)
 
 </div>
 
@@ -47,88 +41,50 @@ Transformer-based RF-DETR model for drone & aerial surveillance detecting critic
 
 ## 📌 Project Overview
 
-This project focuses on the **automated detection of critical infrastructure**—including **Bridges, Power Plants, Substations, and Communication Towers**—from **aerial and drone imagery**.
+This project focuses on the **automated detection of 19 classes of critical infrastructure**—including **Bridges, Power Plants, Substations, Seaports, and Communication Towers**—from **aerial and drone imagery**.
 
-Instead of relying solely on scarce or restricted public datasets, this work emphasizes a **Synthetic Data Pipeline** that leverages advanced **Generative AI models** to create rare and difficult-to-capture scenarios. All generated data was **manually reviewed and annotated** to ensure realism and label quality.
+Instead of relying solely on scarce or restricted public datasets, this work emphasizes a **Data-Centric AI approach** leveraging a **Synthetic Data Pipeline** with advanced **Generative AI models** to create rare and difficult-to-capture scenarios. All generated data was **manually reviewed and annotated** to ensure realism and label quality.
 
 The detection model is built using **RF-DETR (Roboflow Detection Transformer)**, selected for its strong performance on small objects within large, cluttered aerial scenes and its suitability for near–real-time inference.
 
 ---
 
-## 🎯 Objectives
+## 📊 Dataset Statistics
 
-* Detect critical infrastructure from varying aerial and drone viewpoints
-* Address **data scarcity** in security-sensitive domains using synthetic data
-* Train a lightweight transformer-based detector suitable for aerial surveillance
+- **Total Images**: ~1,667 high-resolution aerial images
+- **Classes**: 19 distinct infrastructure categories
+- **Data Composition**: 60% Real-world / 40% Synthetic (Generative AI)
+- **Annotation Format**: COCO JSON (Annotated via Label Studio)
+- **Total Bounding Boxes**: ~4,500+ annotated instances
 
 ---
 
 ## 🛠️ Data Pipeline & Methodology
 
-The primary value of this project lies in the **dataset design and curation strategy**, not in custom model architecture development.
+The primary value of this project lies in the **dataset design and curation strategy**, addressing the severe lack of diverse, multi-class aerial datasets in security-sensitive domains.
 
 ### 1️⃣ Data Gathering & Synthesis
-
-Real-world aerial data for critical infrastructure is often limited, restricted, or lacks viewpoint diversity. To mitigate this, a **hybrid dataset** was created using a **60 / 40 split**:
-
-* **Real Data (60%)**
-
-  * Publicly accessible satellite imagery
-  * Permissible aerial and drone footage
-
-* **Synthetic Data (40%)**
-
-  * Generated to simulate rare or operationally relevant viewpoints
-  * Examples include oblique angles, low-light conditions, and complex backgrounds
+* **Real Data (60%)**: Publicly accessible satellite imagery and permissible aerial/drone footage.
+* **Synthetic Data (40%)**: Generated to simulate rare or operationally relevant viewpoints (oblique angles, low-light conditions, complex backgrounds).
 
 **Generative AI tools used:**
+* **Nano Banana Pro**: High-fidelity texture generation (e.g., rusted metal towers, cracked concrete bridges).
+* **Seedream 4**: Complex environment generation (foggy terrain, dense vegetation, cluttered backgrounds).
+* **ChatGPT**: Structured prompt engineering to enforce specific drone camera parameters (FOV, lighting, altitude, perspective).
 
-* **Nano Banana Pro**
-  Used for high-fidelity texture generation (e.g., rusted metal towers, cracked concrete bridges).
-
-* **Seedream 4**
-  Used to generate complex environments such as foggy terrain, dense vegetation, and cluttered backgrounds to test robustness.
-
-* **ChatGPT**
-  Used for structured prompt engineering to enforce specific drone camera parameters (field of view, lighting, altitude, perspective).
-
----
-
-### 2️⃣ Data Cleaning & Quality Control
-
-* Manual filtering of generated images to remove visual artifacts and hallucinations
-* Resolution standardization to common drone capture formats
-* Visual inspection for annotation suitability
-
----
-
-### 3️⃣ Annotation Process
-
+### 2️⃣ Annotation Process
 * **Tool:** Label Studio
-* **Format:** COCO
-* **Annotation Type:** Manual bounding boxes
-* **Target Classes:**
-
-  * Bridge
-  * Power Plant
-  * Substation
-  * Communication Tower
-
-Care was taken to maintain **consistent class definitions** and bounding box rules across the dataset.
+* **Format:** COCO JSON
+* **Target Classes:** 19 classes including *Bridge, Dam, Nuclear Reactor, Seaport, Mobile Harbour Cranes, Solar Power Plant*, etc.
 
 ---
 
 ## 🤖 Model Choice: RF-DETR
 
 RF-DETR (Real-Time Detection Transformer) was selected over traditional CNN-based detectors (e.g., YOLO) due to its strengths in aerial surveillance scenarios:
-
-* Transformer-based attention mechanisms help isolate infrastructure within large, cluttered scenes
-* Improved handling of small or distant objects
-* Modern architecture aligned with current research and deployment trends
-
-📘 **Documentation:**
-
-* Official RF-DETR Documentation
+* Transformer-based attention mechanisms help isolate infrastructure within large, cluttered scenes.
+* Improved handling of small or distant objects.
+* Modern architecture aligned with current research and deployment trends.
 
 ---
 
@@ -139,7 +95,44 @@ RF-DETR (Real-Time Detection Transformer) was selected over traditional CNN-base
 * **Batch Size:** 4
 * **Optimizer:** AdamW
 
-All training, evaluation, and inference steps were conducted using official RF-DETR workflows.
+---
+
+## 📊 Results & Error Analysis
+
+### 🏆 Validation Performance Metrics
+* **Micro-Average Precision**: **92.4%**
+* **Micro-Average Recall**: **92.3%**
+* **Macro-Average F1-Score**: **83.5%**
+
+| Class | Precision | Recall | F1-Score | Primary Confusion |
+| :--- | :---: | :---: | :---: | :--- |
+| **Water Tower** | 0.991 | 0.957 | **0.974** | Satellite Dish |
+| **Oil Refinery** | 0.966 | 0.955 | **0.960** | - |
+| **Satellite Dish / Ground Station**| 0.937 | 0.974 | **0.955** | Water Tower |
+| **Nuclear Reactor** | 0.916 | 0.936 | **0.926** | Energy Storage |
+| **Mobile Tower** | 0.925 | 0.925 | **0.925** | Transmission Tower |
+| **Bridge** | 0.888 | 0.946 | **0.916** | Dam |
+| **Wind Turbine** | 0.907 | 0.910 | **0.909** | - |
+| **Airport Runway** | 0.892 | 0.922 | **0.907** | Solar Power Plant |
+| **Transmission Tower** | 0.878 | 0.892 | **0.885** | Thermal Power Plant |
+| **Solar Power Plant** | 0.861 | 0.861 | **0.861** | Airport Runway |
+| **Electrical Substation** | 0.857 | 0.842 | **0.850** | - |
+| **Dam** | 0.835 | 0.862 | **0.848** | Bridge |
+| **Energy Storage Infrastructure** | 0.856 | 0.837 | **0.846** | Nuclear Reactor |
+| **Thermal Power Plant** | 0.848 | 0.838 | **0.843** | - |
+| **Cooling Tower** | 0.680 | 0.944 | **0.791** | - |
+| **Seaport** | 0.664 | 0.916 | **0.770** | Mobile Harbour Cranes |
+| **Cargo Ship** | 0.757 | 0.750 | **0.753** | Seaport |
+| **Mobile Harbour Cranes** | 0.745 | 0.708 | **0.726** | Seaport |
+| **Shipping Containers** | 0.655 | 0.442 | **0.528** | Airport Runway |
+
+### 🔍 Deep Dive: Confusion Matrix & Error Analysis
+Analyzing the confusion matrix revealed critical insights into how aerial perspectives affect object detection:
+
+1. **Seaport ↔ Mobile Harbour Cranes**: High mutual confusion. In top-down drone views, the structural footprint of mobile harbour cranes heavily overlaps with general seaport infrastructure, making boundary delineation difficult.
+2. **Shipping Containers → Airport Runway**: False positives observed. Neatly arranged shipping container arrays in low-resolution aerial views can mimic the geometric lines and textures of airport runways.
+3. **Energy Storage Infrastructure ↔ Nuclear Reactor**: Mutual confusion due to the extreme geometric similarity of large cylindrical storage tanks and nuclear containment domes when viewed from a nadir (top-down) perspective.
+4. **Bridge ↔ Dam**: Confusion occurs when long concrete structures span across water bodies, sharing similar structural and shadow profiles from high altitudes.
 
 ---
 
@@ -148,94 +141,40 @@ All training, evaluation, and inference steps were conducted using official RF-D
 This project is designed to be **fully reproducible via Google Colab**.
 
 🔗 **Training & Inference Notebook:**
-[Open in Google Colab](https://colab.research.google.com/drive/167xgsFcpFqzVfAbT88IFdUYeM_X0h1um)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/167xgsFcpFqzVfAbT88IFdUYeM_X0h1um?usp=sharing)
 
 ### Steps:
-
-1. Open the Colab notebook using the link above
-2. Connect to a GPU runtime
-3. The notebook handles:
-
-   * Installation of RF-DETR
-   * Dataset download and setup
-4. Run the cells to train the model and visualize inference results
+1. Open the Colab notebook using the link above.
+2. Connect to a GPU runtime (T4 or better recommended).
+3. The notebook handles installation of RF-DETR, dataset download, and setup.
+4. Run the cells to train the model and visualize inference results.
 
 ---
 
 ## 📂 Resources & Downloads
 
-* **Trained Weights:** Available via the Colab notebook
-* **Dataset:** Provided through Kaggle / Roboflow Universe (link inside notebook)
-
----
-
-## 📊 Results & Observations
-
-* **Synthetic Data Impact:**
-
-  * Adding the 40% synthetic subset resulted in an approximate **15% improvement in mAP** on low-light and oblique-angle validation samples compared to a real-only baseline.
-
-* **Observed Challenges:**
-
-  * Initial confusion between **Communication Towers** and **High-Voltage Pylons**
-  * Mitigated by adding targeted negative samples and refining annotations
-
-These findings reinforced the importance of **dataset composition** over model complexity.
-
-## RF-DETR Validation Performance Metrics
-
-### 📊 Metrics Overview
-- **Precision**: The accuracy of positive predictions.  
-- **Recall**: The ability to find all positive instances.  
-- **$mAP_{50}$**: Mean Average Precision at an Intersection over Union (IoU) threshold of 0.50.  
-- **$mAP_{50:95}$**: Average mAP across IoU thresholds from 0.50 to 0.95 (COCO standard).  
-
-This table summarizes the performance of your model across all 19 infrastructure classes on the validation set.
-
-| Class                           | Precision | Recall | mAP@50 | mAP@50:95 |
-|---------------------------------|-----------|--------|--------|-----------|
-| **All Classes (Avg)**           | **0.747** | **0.630** | **0.761** | **0.506** |
-| Water Tower                     | 1.000     | 0.630  | 1.000  | 0.897     |
-| Electrical Substation           | 1.000     | 0.630  | 1.000  | 0.545     |
-| Oil Refinery                    | 1.000     | 0.630  | 0.996  | 0.869     |
-| Airport Runway                  | 1.000     | 0.630  | 0.847  | 0.387     |
-| Wind Turbine                    | 1.000     | 0.630  | 0.904  | 0.635     |
-| Transmission Tower              | 0.977     | 0.630  | 0.895  | 0.696     |
-| Satellite Dish / Ground Station | 0.966     | 0.630  | 0.945  | 0.802     |
-| Bridge                          | 0.944     | 0.630  | 0.909  | 0.616     |
-| Mobile Tower                    | 0.938     | 0.630  | 0.828  | 0.563     |
-| Energy Storage Infrastructure   | 0.887     | 0.630  | 0.854  | 0.633     |
-| Nuclear Reactor                 | 0.854     | 0.630  | 0.753  | 0.508     |
-| Seaport                         | 0.842     | 0.630  | 0.825  | 0.537     |
-| Thermal Power Plant             | 0.818     | 0.630  | 0.767  | 0.432     |
-| Dam                             | 0.621     | 0.630  | 0.647  | 0.251     |
-| Solar Power Plant               | 0.379     | 0.630  | 0.578  | 0.401     |
-| Cooling Tower                   | 0.333     | 0.630  | 0.333  | 0.250     |
-| Cargo Ship                      | 0.318     | 0.630  | 0.512  | 0.152     |
-| Mobile Harbour Cranes            | 0.283     | 0.630  | 0.509  | 0.320     |
-| Shipping Containers             | 0.035     | 0.630  | 0.354  | 0.114     |
-            
+* **Trained Weights:** Available via the Colab notebook.
+* **Dataset:** Provided through Roboflow Universe (link inside notebook).
 
 ---
 
 ## 🎯 Use Cases
 
-- 🏛️ **Defense & Security**: Critical infrastructure monitoring
-- 🗺️ **Urban Planning**: Infrastructure mapping and assessment
-- 🚨 **Disaster Response**: Rapid damage assessment after natural disasters
-- 📊 **Research**: Geospatial analysis and infrastructure studies
+- 🏛️ **Defense & Security**: Critical infrastructure monitoring and threat detection.
+- 🗺️ **Urban Planning**: Infrastructure mapping, zoning, and assessment.
+- 🚨 **Disaster Response**: Rapid damage assessment after natural disasters.
+- 📊 **Research**: Geospatial analysis and multi-modal infrastructure studies.
 
 ---
 
 ## 🤝 Acknowledgements
 
 This project builds upon:
-
 - [Original RF-DETR Paper](https://arxiv.org/abs/2303.10845) & [GitHub Repository](https://github.com/liming-ai/RF-DETR)
-- [Roboflow](https://roboflow.com/) for dataset management tools
-- [Supervision](https://github.com/roboflow/supervision) library for visualization
-- [Label Studio](https://labelstud.io/) for annotation platform
-- [PyTorch](https://pytorch.org/) deep learning framework
+- [Roboflow](https://roboflow.com/) for dataset management and augmentation tools.
+- [Supervision](https://github.com/roboflow/supervision) library for visualization.
+- [Label Studio](https://labelstud.io/) for the annotation platform.
+- [PyTorch](https://pytorch.org/) deep learning framework.
 
 ---
 
@@ -247,9 +186,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-**Sayan C** - [13sayanc@gmail.com](mailto:your.email@example.com)
+**Sayan C** - [13sayanc@gmail.com](mailto:13sayanc@gmail.com)
 
-Project Link: [https://github.com/sayanc227/RF-DETR-Infrastructure-Detection](https://github.com/sayanc227/Critical-Infrastructure-Detection-using-RF-DETR)
+Project Link: [https://github.com/sayanc227/Critical-Infrastructure-Detection-using-RF-DETR](https://github.com/sayanc227/Critical-Infrastructure-Detection-using-RF-DETR)
 
 ---
 
