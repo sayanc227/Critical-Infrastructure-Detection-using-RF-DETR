@@ -2,12 +2,24 @@
 
 Transformer-based RF-DETR model for drone & aerial surveillance detecting 19 classes of critical infrastructure (bridges, power plants, substations, towers, ports, etc.).
 
+
+
+
+https://github.com/user-attachments/assets/e4672283-c5a5-4408-ad3d-ba0de7af4905
+
+
+
+https://github.com/user-attachments/assets/f2774356-3e9f-4079-af99-945f2cdccb0a
+
+https://github.com/user-attachments/assets/b080e1eb-a57c-46cc-bc8b-00a93e4fa179
+
+
 <div align="center">
 
 <table>
   <tr>
     <td width="50%">
-      <img src="https://github.com/user-attachments/assets/f2774356-3e9f-4079-af99-945f2cdccb0a" alt="Detection Example 1"/>
+      <img src="https://github.com/user-attachments/assets/e4672283-c5a5-4408-ad3d-ba0de7af4905" alt="Detection Example 1"/>
     </td>
     <td width="50%">
       <img src="https://github.com/user-attachments/assets/b080e1eb-a57c-46cc-bc8b-00a93e4fa179" alt="Detection Example 2"/>
